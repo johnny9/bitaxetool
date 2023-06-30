@@ -2,16 +2,16 @@
 name = "bitaxetool"
 version = "0.1"
 authors = [
-    { name="johnny9", email="johnny9dev@pm.me" },
+    { name = "johnny9", email = "johnny9dev@pm.me" },
 ]
 description = "Firmware and configuration tool for Bitaxe"
 requires-python = ">=3"
+dependencies = [
+    "esptool",
+]
 
 [project.urls]
-"Homepage" = "https://github.com/johnny9/bitaxetool"
-
-[project.dependencies]
-esptool = "^4.6.2"
+homepage = "https://github.com/johnny9/bitaxetool"
 
 [build-system]
 requires = ["setuptools>=61.0"]
