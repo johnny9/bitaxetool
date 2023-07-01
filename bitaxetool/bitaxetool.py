@@ -1,6 +1,9 @@
-import argparse
-import nvs_partition_gen
+from . import nvs_partition_gen
+
 import esptool
+
+import argparse
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Flash firmware and config to a device.')
