@@ -1,4 +1,6 @@
 import argparse
+import os
+import tempfile
 
 import esptool
 
@@ -25,9 +27,12 @@ def parse_args():
 
 
 def flash_bitaxe(firmware_path, config_path, serial_port):
+    temp_dir = tempfile.gettempdir()
+    temp_config_file = 'bitaxe_config.bin'
+    output_config_path = os.path.join(temp_dir, temp_config_file)
     nvs_gen_args = argparse.Namespace(input=config_path,
-                                      output='config.bin',
-                                      outdir='/tmp',
+                                      output=temp_config_file,
+                                      outdir=temp_dir,
                                       size='0x6000',
                                       version=2)
     nvs_partition_gen.generate(nvs_gen_args)
@@ -35,8 +40,9 @@ def flash_bitaxe(firmware_path, config_path, serial_port):
     esp_arguments = []
     if serial_port is not None:
         esp_arguments += ['--port', serial_port]
-    esp_arguments += ['write_flash', '0x9000', '/tmp/config.bin', '0x10000', firmware_path]
+    esp_arguments += ['write_flash', '0x9000', output_config_path, '0x10000', firmware_path]
     esptool.main(esp_arguments)
+    os.remove(output_config_path)
 
 
 def main():
