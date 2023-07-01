@@ -1,24 +1,24 @@
-from . import nvs_partition_gen
+import argparse
 
 import esptool
 
-import argparse
+from . import nvs_partition_gen
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Flash firmware and config to a device.')
 
-    parser.add_argument('--port', 
-                        type=str, 
-                        default=None, 
+    parser.add_argument('--port',
+                        type=str,
+                        default=None,
                         help='The serial port to connect to.')
-    parser.add_argument('--firmware', 
-                        type=str, 
-                        required=True, 
+    parser.add_argument('--firmware',
+                        type=str,
+                        required=True,
                         help='The binary file to flash.')
-    parser.add_argument('--config', 
-                        type=str, 
-                        required=True, 
+    parser.add_argument('--config',
+                        type=str,
+                        required=True,
                         help='The config file to flash.')
 
     return parser.parse_args()
