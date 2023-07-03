@@ -11,15 +11,15 @@ from . import nvs_partition_gen, validation
 def parse_args():
     parser = argparse.ArgumentParser(description='Flash firmware and config to a device.')
 
-    parser.add_argument('--port',
+    parser.add_argument('-p', '--port',
                         type=str,
                         default=None,
                         help='The serial port to connect to.')
-    parser.add_argument('--firmware',
+    parser.add_argument('-f', '--firmware',
                         type=str,
                         required=True,
                         help='The binary file to flash.')
-    parser.add_argument('--config',
+    parser.add_argument('-c', '--config',
                         type=str,
                         required=True,
                         help='The config file to flash.')
