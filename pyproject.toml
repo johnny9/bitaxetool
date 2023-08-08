@@ -10,6 +10,11 @@ dependencies = [
     "esptool",
 ]
 
+[project.optional-dependencies]
+validate = [
+    "cerberus==1.3.4",
+]
+
 [project.urls]
 homepage = "https://github.com/johnny9/bitaxetool"
 
