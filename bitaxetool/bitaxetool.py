@@ -65,6 +65,11 @@ def main():
             print(error_msg)
             sys.exit(1)
     
+        print("Validating config...")
+        validation.validate_config(args.config)
+        print("Config validated successfully!")
+
+
     flash_bitaxe(args.firmware, args.config, args.port)
 
 
