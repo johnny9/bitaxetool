@@ -1,10 +1,11 @@
 import argparse
 import os
+import sys
 import tempfile
 
 import esptool
 
-from . import nvs_partition_gen
+from . import nvs_partition_gen, validation
 
 
 def parse_args():
@@ -22,6 +23,13 @@ def parse_args():
                         type=str,
                         required=True,
                         help='The config file to flash.')
+    parser.add_argument('--validate_config',
+                        '--validate',
+                        action='store_true',
+                        required=False,
+                        default=False,
+                        help='Validate the config file before flashing.')
+    
 
     return parser.parse_args()
 
@@ -51,6 +59,12 @@ def main():
         print(f"Connecting to port: {args.port}")
     print(f"Flashing firmware: {args.firmware}")
     print(f"Flashing config: {args.config}")
+    if args.validate_config:
+        error_msg = validation.check_validate_dependencies()
+        if error_msg is not None:
+            print(error_msg)
+            sys.exit(1)
+    
     flash_bitaxe(args.firmware, args.config, args.port)
 
 
