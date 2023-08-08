@@ -75,8 +75,8 @@ def validate_config(config_path: str) -> None:
             'required': True,
         },
         'stratumurl': {
-            'type': 'string', # TODO: validate url
-            'check_with': _check_stratum_url,
+            'type': 'string',
+            'check_with': _check_stratum_url, # custom validate function
             'required': True,
         },
         'stratumport': {
