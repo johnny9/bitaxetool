@@ -35,6 +35,12 @@ def parse_args():
 
 
 def flash_bitaxe(firmware_path, config_path, serial_port):
+    esp_arguments = []
+    if serial_port is not None:
+        esp_arguments += ['--port', serial_port]
+    esp_arguments += ['write_flash', '0x0', firmware_path]
+    esptool.main(esp_arguments)
+
     temp_dir = tempfile.gettempdir()
     temp_config_file = 'bitaxe_config.bin'
     output_config_path = os.path.join(temp_dir, temp_config_file)
@@ -48,7 +54,7 @@ def flash_bitaxe(firmware_path, config_path, serial_port):
     esp_arguments = []
     if serial_port is not None:
         esp_arguments += ['--port', serial_port]
-    esp_arguments += ['write_flash', '0x9000', output_config_path, '0x10000', firmware_path]
+    esp_arguments += ['write_flash', '0x9000', output_config_path]
     esptool.main(esp_arguments)
     os.remove(output_config_path)
 
