@@ -17,11 +17,11 @@ def parse_args():
                         help='The serial port to connect to.')
     parser.add_argument('-f', '--firmware',
                         type=str,
-                        required=True,
+                        required=False,
                         help='The binary file to flash.')
     parser.add_argument('-c', '--config',
                         type=str,
-                        required=True,
+                        required=False,
                         help='The config file to flash.')
     parser.add_argument('--validate_config',
                         '--validate',
@@ -38,25 +38,27 @@ def flash_bitaxe(firmware_path, config_path, serial_port):
     esp_arguments = []
     if serial_port is not None:
         esp_arguments += ['--port', serial_port]
-    esp_arguments += ['write_flash', '0x0', firmware_path]
-    esptool.main(esp_arguments)
+    if firmware_path is not None:
+        esp_arguments += ['write_flash', '0x0', firmware_path]
+        esptool.main(esp_arguments)
 
-    temp_dir = tempfile.gettempdir()
-    temp_config_file = 'bitaxe_config.bin'
-    output_config_path = os.path.join(temp_dir, temp_config_file)
-    nvs_gen_args = argparse.Namespace(input=config_path,
+    if config_path is not None:
+        temp_dir = tempfile.gettempdir()
+        temp_config_file = 'bitaxe_config.bin'
+        output_config_path = os.path.join(temp_dir, temp_config_file)
+        nvs_gen_args = argparse.Namespace(input=config_path,
                                       output=temp_config_file,
                                       outdir=temp_dir,
                                       size='0x6000',
                                       version=2)
-    nvs_partition_gen.generate(nvs_gen_args)
+        nvs_partition_gen.generate(nvs_gen_args)
 
-    esp_arguments = []
-    if serial_port is not None:
-        esp_arguments += ['--port', serial_port]
-    esp_arguments += ['write_flash', '0x9000', output_config_path]
-    esptool.main(esp_arguments)
-    os.remove(output_config_path)
+        esp_arguments = []
+        if serial_port is not None:
+            esp_arguments += ['--port', serial_port]
+        esp_arguments += ['write_flash', '0x9000', output_config_path]
+        esptool.main(esp_arguments)
+        os.remove(output_config_path)
 
 
 def main():
