@@ -1,6 +1,6 @@
 [project]
 name = "bitaxetool"
-version = "0.4"
+version = "0.5"
 authors = [
     { name = "johnny9", email = "johnny9dev@pm.me" },
 ]
