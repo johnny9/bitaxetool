@@ -33,6 +33,7 @@ def parse_args():
 
     return parser.parse_args()
 
+#passing commands for a Bitaxe Ultra 220 for a unit test 
 
 def flash_bitaxe(firmware_path, config_path, serial_port):
     esp_arguments = []
