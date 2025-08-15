@@ -7,7 +7,7 @@ authors = [
 description = "Firmware and configuration tool for Bitaxe"
 requires-python = ">=3"
 dependencies = [
-    "esptool",
+    "esptool==4.9.0",
 ]
 
 [project.optional-dependencies]
