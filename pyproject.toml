@@ -5,9 +5,9 @@ authors = [
     { name = "johnny9", email = "johnny9dev@pm.me" },
 ]
 description = "Firmware and configuration tool for Bitaxe"
-requires-python = ">=3"
+requires-python = ">=3.10"
 dependencies = [
-    "esptool==4.9.0",
+    "esptool==5.2.0",
 ]
 
 [project.optional-dependencies]
@@ -19,7 +19,7 @@ validate = [
 homepage = "https://github.com/johnny9/bitaxetool"
 
 [project.scripts]
-bitaxetool = "bitaxetool:bitaxetool.main"
+bitaxetool = "bitaxetool.bitaxetool:main"
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
